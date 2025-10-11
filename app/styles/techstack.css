@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+.stackContainer {
+  @apply bg-[#F5F5F5] text-black flex flex-wrap overflow-auto;
+}
+
+.stack {
+  @apply flex-1 p-2 flex flex-col items-center;
+}
+.stackName {
+  @apply flex items-center justify-center;
+}
+.stackIcons {
+  @apply p-4 border-2 border-black flex flex-wrap gap-2 items-start;
+}
+
+.box {
+  margin: 25px;
+  width: 250px;
+  min-height: 200px;
+  border: solid black;
+  border-color: black;
+  float: left;
+  border-width: 3px 4px 3px 5px;
+  border-radius: 95% 4% 92% 5%/4% 95% 6% 95%;
+  transform: rotate(2deg);
+}

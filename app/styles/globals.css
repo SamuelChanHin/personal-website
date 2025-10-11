@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+input {
+  all: unset;
+}
+button {
+  all: unset;
+}
+body {
+  @apply select-auto z-0;
+}
+
+main {
+  @apply relative z-[2];
+}
+
+.modalContainer {
+  @apply absolute top-0 bottom-0 left-0 right-0;
+}
+
+.modal {
+  @apply flex flex-col z-[9999] fixed max-w-[90%] min-w-[300px] max-h-[80%] border-1 rounded-sm border-[#2C3037] overflow-hidden;
+}
+
+.modalTopBar {
+  @apply bg-[#2C3037] h-7 p-2 gap-2 flex items-center justify-start;
+}
+.modalCloseBtn {
+  @apply w-3 aspect-square rounded-full cursor-pointer;
+}
+.modalContent {
+  @apply overflow-scroll;
+}
