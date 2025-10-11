@@ -32,7 +32,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: deploy
         run: |
-          aws s3 sync ./build/client s3://personalwebsite
+          aws s3 sync ./build/client s3://devpersonalwebsite
       - name: clear cache
         run: |
           aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_CF_DISTRIBUTION_ID}} --paths "/*"
