@@ -49,16 +49,27 @@ function parse(directoryName: string, folder: Section): IFolder {
 
 // provides `loaderData` to the component
 export async function clientLoader({ params }: Route.LoaderArgs) {
-  const data = await fetchConfig();
-  const folder = data.data;
+  try {
+    const data = await fetchConfig();
 
-  let root: IFolder = {
-    displayName: "~",
-    type: "dir",
-    source: parse("root", folder).source,
-  };
+    const folder = data.data;
 
-  return { root };
+    let root: IFolder = {
+      displayName: "~",
+      type: "dir",
+      source: parse("root", folder).source,
+    };
+
+    return { root };
+  } catch (e) {
+    let root: IFolder = {
+      displayName: "~",
+      type: "dir",
+      source: {},
+    };
+
+    return { root };
+  }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
