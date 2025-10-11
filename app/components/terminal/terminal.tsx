@@ -1,20 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 import _ from "lodash";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Banner from "../banner";
 
-import { base, commandDescriptions, commands, root } from "./const";
-import HelpComponent from "./initial";
-import InitialComponent from "./initial";
-import TerminalButton from "./terminal-button";
+import { useDragModal } from "~/providers/draggable-modal-provider";
 import type {
   Commands,
   IFile,
@@ -22,8 +13,10 @@ import type {
   IHistory,
   ILink,
 } from "~/types/terminal.type";
-import { useDragModal } from "~/providers/draggable-modal-provider";
 import { commandFormat } from "~/utils/cmd-format";
+import { base, commandDescriptions, commands } from "./const";
+import InitialComponent from "./initial";
+import TerminalButton from "./terminal-button";
 
 const initialStatement: IHistory[] = [
   {
@@ -33,7 +26,11 @@ const initialStatement: IHistory[] = [
   },
 ];
 
-function Terminal() {
+type Props = {
+  root: IFolder;
+};
+
+function Terminal({ root }: Props) {
   const [serverReady, setServerReady] = useState(false); // For UI delay usage
   const [commandReady, setCommandReady] = useState(false); // For UI delay usage
   const isClear = useRef(false); // Detect command clear
