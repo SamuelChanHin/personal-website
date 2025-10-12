@@ -28,10 +28,10 @@ const initialStatement: IHistory[] = [
 
 type Props = {
   root: IFolder;
+  loading: boolean;
 };
 
-function Terminal({ root }: Props) {
-  const [serverReady, setServerReady] = useState(false); // For UI delay usage
+function Terminal({ root, loading }: Props) {
   const [commandReady, setCommandReady] = useState(false); // For UI delay usage
   const isClear = useRef(false); // Detect command clear
   const cmdInputRef = useRef<HTMLInputElement | null>(null);
@@ -43,6 +43,11 @@ function Terminal({ root }: Props) {
   const [lastCmdHistoryIdx, setLastCmdHistoryIdx] = useState<number | null>(
     null
   );
+
+  useEffect(() => {
+    // init
+    setCurrDir(root);
+  }, [root]);
 
   /**
    * <<<<<<<<<<<<< function for event >>>>>>>>>>>>>>>>
@@ -429,7 +434,7 @@ function Terminal({ root }: Props) {
 
   useEffect(() => {
     // * server ready => display something => command ready
-    if (serverReady) {
+    if (!loading) {
       const clonedHistories = _.cloneDeep(histories);
       clonedHistories.push(initialTutorial);
       setHistories(clonedHistories);
@@ -437,12 +442,8 @@ function Terminal({ root }: Props) {
       setTimeout(() => {
         setCommandReady(true);
       }, 100);
-    } else {
-      setTimeout(() => {
-        setServerReady(true);
-      }, 1000);
     }
-  }, [serverReady]);
+  }, [loading]);
 
   useEffect(() => {
     // Fix focus & user selection conflict bug

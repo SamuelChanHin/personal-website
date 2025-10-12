@@ -66,3 +66,9 @@ export let root: IFolder = {
     },
   },
 };
+
+export const terminalMapping = {
+  contact: <Contact />,
+  about: <About />,
+  stacks: <TechStack />,
+};

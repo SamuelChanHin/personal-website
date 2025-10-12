@@ -26,10 +26,3 @@ export interface IFolder {
 }
 
 export type Commands = "help" | "clear" | "ls" | "cd" | "open";
-
-const colorTone = {
-  background: "#151729",
-  text: "#24BF6C",
-  specialText: "#DC58A1",
-  slash: "#0069AE",
-};

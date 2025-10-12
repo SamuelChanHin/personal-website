@@ -4,18 +4,18 @@ import type { ApiResponse } from "../type";
 import { queryClient } from "~/providers/ReactQueryProvider";
 
 const queryKeyMapping = {
-  config: ["config"],
+  directory: ["directory"],
 };
 
 const getConfigQuery = {
-  queryKey: queryKeyMapping.config,
-  queryFn: () => PersonalWebsiteApi.getPersonalWebsiteConfig(),
+  queryKey: queryKeyMapping.directory,
+  queryFn: () => PersonalWebsiteApi.getPersonalWebsiteDirectory(),
 };
 
-export const useGetConfig = (): UseQueryResult<ApiResponse, Error> => {
+export const useGetDirectory = (): UseQueryResult<ApiResponse, Error> => {
   return useQuery<ApiResponse, Error>(getConfigQuery);
 };
 
-export const fetchConfig = () => {
+export const fetchDirectory = () => {
   return queryClient.fetchQuery(getConfigQuery);
 };

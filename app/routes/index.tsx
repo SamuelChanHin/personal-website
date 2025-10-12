@@ -1,9 +1,11 @@
 import Terminal from "~/components/terminal/terminal";
 import type { Route } from "./+types/index";
 import clsx from "clsx";
-import { fetchConfig } from "~/api/hooks/useConfig";
 import type { IFolder } from "~/types/terminal.type";
 import type { Section } from "~/api/type";
+import { useGetDirectory } from "~/api/hooks/useDirectory";
+import { useMemo } from "react";
+import { terminalMapping } from "~/components/terminal/const";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -34,7 +36,8 @@ function parse(directoryName: string, folder: Section): IFolder {
     } else if (section.type === "file") {
       root.source[section.name] = {
         type: "file",
-        content: section.url,
+        content:
+          terminalMapping[section.name as keyof typeof terminalMapping] || null,
       };
     } else if (section.type === "link") {
       root.source[section.name] = {
@@ -48,34 +51,31 @@ function parse(directoryName: string, folder: Section): IFolder {
 }
 
 // provides `loaderData` to the component
-export async function clientLoader({ params }: Route.LoaderArgs) {
-  try {
-    const data = await fetchConfig();
+export async function clientLoader({ params }: Route.LoaderArgs) {}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { data, isLoading } = useGetDirectory();
+
+  let root: IFolder = useMemo(() => {
+    if (!data)
+      return {
+        displayName: "~",
+        type: "dir",
+        source: {},
+      };
 
     const folder = data.data;
 
-    let root: IFolder = {
+    return {
       displayName: "~",
       type: "dir",
       source: parse("root", folder).source,
     };
+  }, [data]);
 
-    return { root };
-  } catch (e) {
-    let root: IFolder = {
-      displayName: "~",
-      type: "dir",
-      source: {},
-    };
-
-    return { root };
-  }
-}
-
-export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <div id="terminal" className={clsx("terminal")}>
-      <Terminal root={loaderData.root} />
+      <Terminal root={root} loading={isLoading} />
     </div>
   );
 }
