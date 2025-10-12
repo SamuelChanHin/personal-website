@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../app.css";
 
 .text-art {
   font-family: monospace;
@@ -20,7 +21,16 @@
 }
 
 .terminal {
-  @apply min-h-dvh w-full py-2 px-4 bg-[#151729] text-[#24BF6C] text-sm;
+  @apply min-h-dvh w-full py-2 px-4  text-sm;
+
+  background-color: hsl(var(--heroui-background-500));
+  color: hsl(var(--heroui-primary-400));
+}
+.baseColor {
+  color: hsl(var(--heroui-primary-500));
+}
+.dirColor {
+  color: hsl(var(--heroui-secondary-400));
 }
 .line {
   @apply my-1 flex gap-2;

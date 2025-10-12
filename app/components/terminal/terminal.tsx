@@ -17,6 +17,7 @@ import { commandFormat } from "~/utils/cmd-format";
 import { base, commandDescriptions, commands } from "./const";
 import InitialComponent from "./initial";
 import TerminalButton from "./terminal-button";
+import { useTheme } from "next-themes";
 
 const initialStatement: IHistory[] = [
   {
@@ -43,6 +44,7 @@ function Terminal({ root, loading }: Props) {
   const [lastCmdHistoryIdx, setLastCmdHistoryIdx] = useState<number | null>(
     null
   );
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     // init
@@ -198,7 +200,7 @@ function Terminal({ root, loading }: Props) {
                 key={idx}
                 className={clsx({
                   "font-bold": isDir,
-                  "text-[#0069AE]": isDir,
+                  dirColor: isDir,
                   terminalBtn: isDir,
                 })}
                 onClick={() => {
@@ -348,6 +350,11 @@ function Terminal({ root, loading }: Props) {
           content = getCurrentDirContentComponent();
           break;
         }
+        case "set": {
+          const theme = inputArgs[0];
+          setTheme(theme === "dark" ? "dark" : "light");
+          break;
+        }
         default: {
           if (inputCommand) {
             // Handle not found
@@ -480,9 +487,9 @@ function Terminal({ root, loading }: Props) {
           <React.Fragment key={index}>
             {history.cmd && (
               <div className={clsx("line")}>
-                <span className={clsx("font-bold text-[#198C50]")}>
+                <span className={clsx("font-bold baseColor")}>
                   {base}
-                  <span className={clsx("text-[#0069AE]")}>
+                  <span className={clsx("dirColor")}>
                     {" "}
                     {history.dirDisplayName}
                   </span>
@@ -512,9 +519,9 @@ function Terminal({ root, loading }: Props) {
           invisible: !commandReady,
         })}
       >
-        <span className={clsx("font-bold text-[#198C50]")}>
+        <span className={clsx("font-bold baseColor")}>
           {base}
-          <span className={clsx("text-[#0069AE] whitespace-nowrap")}>
+          <span className={clsx("dirColor whitespace-nowrap")}>
             {" "}
             {currDir.displayName}
           </span>

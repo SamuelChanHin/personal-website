@@ -5,7 +5,14 @@ import type { Commands, IFolder } from "~/types/terminal.type";
 
 export let base = "samuel@localhost:";
 
-export const commands: Commands[] = ["help", "clear", "ls", "cd", "open"];
+export const commands: Commands[] = [
+  "help",
+  "clear",
+  "ls",
+  "cd",
+  "open",
+  "set",
+];
 
 export const commandDescriptions: { [key in Commands]: string } = {
   help: "Read all commands",
@@ -13,6 +20,7 @@ export const commandDescriptions: { [key in Commands]: string } = {
   cd: "Change directory",
   open: "Open file",
   clear: "Clear histories",
+  set: " Set terminal theme (dark or light)",
 };
 
 export let root: IFolder = {

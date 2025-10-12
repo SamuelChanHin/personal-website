@@ -7,7 +7,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       <NextThemesProvider
         attribute="class"
         storageKey={"theme"}
-        defaultTheme="light"
+        defaultTheme="dark"
       >
         {children}
       </NextThemesProvider>

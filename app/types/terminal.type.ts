@@ -25,4 +25,4 @@ export interface IFolder {
   getPrev?: () => IFolder;
 }
 
-export type Commands = "help" | "clear" | "ls" | "cd" | "open";
+export type Commands = "help" | "clear" | "ls" | "cd" | "open" | "set";
