@@ -453,6 +453,10 @@ function Terminal({ root, loading }: Props) {
   }, [loading]);
 
   useEffect(() => {
+    if (commandReady) cmdInputRef.current?.focus();
+  }, [commandReady]);
+
+  useEffect(() => {
     // Fix focus & user selection conflict bug
     if (!cmdInputRef.current) return;
 
